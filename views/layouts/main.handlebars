@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Example App</title>
+   <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+<body>
+ 
+    {{{body}}}
+ 
+ <script>
+     $(document).ready(function(){
+
+         $('.eat').on('click', function(){
+             var id= $(this).data('id')
+             console.log(id)
+             $.ajax('/api/burgers/'+ id,{ method: 'PUT' , data: {devoured: true}}).then(function(){
+                 console.log('devoured a burger')
+                 location.reload()
+             })
+         })
+         $('#add').on('click', function(e){
+             e.preventDefault()
+             var name= $('#ca').val().trim()
+             $.ajax('/api/burgers',{method: 'POST', data: {burger_name: name, devoured: 0}}).then( function(){
+                 console.log("You made a burger, you chef, you!")
+                 location.reload()
+             })
+         })
+     })
+ </script>
+</body>
+</html>
